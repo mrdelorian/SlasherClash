@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlasherFaceOff</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 12.6rem;
+            color: #f44336;
+            margin: 20px 0;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        .battle-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 1000px;
+        }
+
+        .villain-container {
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            width: 45%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .villain-container img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .villain-container img:hover {
+            transform: scale(1.1);
+        }
+
+        .villain-container p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Leaderboard Section */
+        #leaderboard {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%; /* Ensures there's space for margin */
+    max-width: 1000px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin-top: 30px;
+    margin-left: -3.6%;  /* Moves the leaderboard slightly to the right */
+    /* margin-right: 10%; Moves to the left */
+}
+
+
+        #leaderboard h2 {
+            color: #f44336;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        ul li {
+            font-size: 1.1rem;
+            margin: 10px 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Winner Section */
+        #winner {
+            display: none;
+            text-align: center;
+            margin-top: 50px;
+            margin-left: -16%;  /* Moves the winner slightly to the right */
+    /* margin-right: 10%; Moves to the left */
+        }
+
+        #winner img {
+            max-width: 300px;
+            margin-left: -16;  /* Moves the winner img slightly to the right */
+            /* margin-right: 10%; Moves to the left */
+        }
+
+        #winner p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Timer */
+        #timer {
+    font-size: 2rem;
+    color: white;
+    background-color: #f4433600;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 20px; /* Move the timer to the right */
+    /* or */
+    margin-right: 112px; /* Move the timer to the left */
+}
+
+
+        /* Footer */
+        footer {
+            font-size: 1rem;
+            color: white;
+            text-align: left; /* Move footer text to the left */
+            padding-left: 1620px; /* Optional: Adds space from the left */
+            width: 100%; /* Ensures footer takes full width */
+            position: absolute; /* Fixes footer at the bottom */
+            bottom: 1; /* Position it at the bottom of the page */
+        }
+
+        footer a {
+            color: #f44336;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>SlasherFaceOff</h1>
+    </header>
+
+    <main>
+        <div class="battle-container">
+            <div class="villain-container" id="villain1">
+                <!-- Villain 1 image and name will be dynamically inserted here -->
+            </div>
+            <div class="villain-container" id="villain2">
+                <!-- Villain 2 image and name will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <div id="timer">Time Remaining: 01:00</div>
+
+        <div id="leaderboard">
+            <h2>Leaderboard</h2>
+            <ul id="leaderboard-list">
+                <!-- Dynamic leaderboard will populate here -->
+            </ul>
+        </div>
+
+        <div id="winner">
+            <h2>Winner</h2>
+            <img id="winner-image" src="" alt="">
+            <p id="winner-name"></p>
+            <p id="winner-score"></p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Created by <a href="https://t.co/cIMpG0Un4Q">mr delorian</a></p>
+    </footer>
+
+    <script>
+        let villains = [
+            { name: "Freddy Krueger", wins: 0, image: "images/freddy.jpg" },
+            { name: "Jason Voorhees", wins: 0, image: "images/jason.jpg" },
+            { name: "Chucky", wins: 0, image: "images/chucky.jpg" },
+            { name: "Michael Myers", wins: 0, image: "images/michaelmyers.jpg" },
+            { name: "Pinhead", wins: 0, image: "images/pinhead.jpg" },
+            { name: "Esther", wins: 0, image: "images/esther.jpg" },
+            { name: "Art The Clown", wins: 0, image: "images/arttheclown.jpg" },
+            { name: "Candyman", wins: 0, image: "images/candyman.jpg" },
+            { name: "The Thing", wins: 0, image: "images/thething.jpg" },
+            { name: "Frankenstein", wins: 0, image: "images/frankenstein.jpg" }
+        ];
+
+        let matchupIndex = 0;
+        let countdown;
+        let timeLeft = 2; // 0 minute = 2 seconds
+        let votingEnabled = true; // Flag to track if voting is enabled
+
+        // Start the timer countdown
+        function startTimer() {
+            countdown = setInterval(function() {
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                document.getElementById("timer").textContent = `Time Remaining: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                timeLeft--;
+
+                if (timeLeft < 0) {
+                    clearInterval(countdown);
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        // Function to select the winner and update the leaderboard
+        function selectWinner(villainNumber) {
+            if (!votingEnabled) return; // Disable voting if the timer has ended
+
+            let winner = villainNumber === 1 ? villains[matchupIndex] : villains[matchupIndex + 1];
+            winner.wins += 1;
+
+            // Update the leaderboard
+            updateLeaderboard();
+
+            // Show new matchup
+            nextMatchup();
+        }
+
+        // Function to update the leaderboard
+        function updateLeaderboard() {
+            let leaderboardList = document.getElementById("leaderboard-list");
+            leaderboardList.innerHTML = "";  // Clear the leaderboard list
+
+            villains.sort((a, b) => b.wins - a.wins);  // Sort villains by wins
+
+            villains.forEach(villain => {
+                let li = document.createElement("li");
+                li.textContent = `${villain.name}: ${villain.wins} wins`;
+                leaderboardList.appendChild(li);
+            });
+        }
+
+        // Function to show the next matchup
+        function nextMatchup() {
+            matchupIndex = (matchupIndex + 2) % villains.length;  // Loop back if we run out of matchups
+
+            // Update the displayed matchups with both the image and name
+            document.getElementById("villain1").innerHTML = ` 
+                <img src="${villains[matchupIndex].image}" alt="${villains[matchupIndex].name}" onclick="selectWinner(1)">
+                <p>${villains[matchupIndex].name}</p>
+            `;
+            document.getElementById("villain2").innerHTML = ` 
+                <img src="${villains[matchupIndex + 1].image}" alt="${villains[matchupIndex + 1].name}" onclick="selectWinner(2)">
+                <p>${villains[matchupIndex + 1].name}</p>
+            `;
+        }
+
+        // Function to end the game and display the winner
+        function endGame() {
+            votingEnabled = false; // Disable voting after the timer ends
+
+            let winner = villains.sort((a, b) => b.wins - a.wins)[0]; // Get the villain with the highest score
+
+            document.getElementById("winner-image").src = winner.image;
+            document.getElementById("winner-name").textContent = `${winner.name}`;
+            document.getElementById("winner-score").textContent = `${winner.wins} wins`;
+            document.getElementById("winner").style.display = 'block'; // Show the winner section
+        }
+
+        // Initialize the first matchup and start the timer when the page loads
+        window.onload = function() {
+            nextMatchup();
+            startTimer();
+        };
+    </script>
+</body>
+</html>
