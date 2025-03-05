@@ -21,7 +21,7 @@
         }
 
         h1 {
-            font-size: 12.6rem;
+            font-size: 5vw;  /* Responsive font size based on the viewport width */
             color: #f44336;
             margin: 20px 0;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
@@ -32,8 +32,9 @@
             justify-content: center;
             gap: 30px;
             margin-top: 20px;
-            width: 80%;
+            width: 90%;
             max-width: 1000px;
+            flex-wrap: wrap;  /* Allows the layout to adjust on smaller screens */
         }
 
         .villain-container {
@@ -41,9 +42,11 @@
             border-radius: 10px;
             padding: 20px;
             width: 45%;
+            max-width: 300px;  /* Prevents it from becoming too wide on larger screens */
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease-in-out;
+            margin: 10px;
         }
 
         .villain-container img {
@@ -67,17 +70,15 @@
 
         /* Leaderboard Section */
         #leaderboard {
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 30px;
-    border-radius: 10px;
-    width: 80%; /* Ensures there's space for margin */
-    max-width: 1000px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    margin-top: 30px;
-    margin-left: -3.6%;  /* Moves the leaderboard slightly to the right */
-    /* margin-right: 10%; Moves to the left */
-}
-
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 1000px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            margin-top: 30px;
+            margin-left: -3.6%;
+        }
 
         #leaderboard h2 {
             color: #f44336;
@@ -102,14 +103,12 @@
             display: none;
             text-align: center;
             margin-top: 50px;
-            margin-left: -16%;  /* Moves the winner slightly to the right */
-    /* margin-right: 10%; Moves to the left */
+            margin-left: -16%;
         }
 
         #winner img {
             max-width: 300px;
-            margin-left: -16;  /* Moves the winner img slightly to the right */
-            /* margin-right: 10%; Moves to the left */
+            margin-left: -16;
         }
 
         #winner p {
@@ -120,26 +119,25 @@
 
         /* Timer */
         #timer {
-    font-size: 2rem;
-    color: white;
-    background-color: #f4433600;
-    padding: 10px;
-    border-radius: 5px;
-    margin-left: 20px; /* Move the timer to the right */
-    /* or */
-    margin-right: 112px; /* Move the timer to the left */
-}
-
+            font-size: 2rem;
+            color: white;
+            background-color: #f4433600;
+            padding: 10px;
+            border-radius: 5px;
+            margin-left: 20px;
+        }
 
         /* Footer */
         footer {
             font-size: 1rem;
             color: white;
-            text-align: left; /* Move footer text to the left */
-            padding-left: 1620px; /* Optional: Adds space from the left */
-            width: 100%; /* Ensures footer takes full width */
-            position: absolute; /* Fixes footer at the bottom */
-            bottom: 1; /* Position it at the bottom of the page */
+            text-align: center; /* Center the footer text */
+            padding: 20px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #333;
         }
 
         footer a {
@@ -149,6 +147,38 @@
 
         footer a:hover {
             text-decoration: underline;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 8vw;  /* Make header font size smaller on medium devices */
+            }
+
+            .villain-container {
+                width: 90%;  /* Full width for mobile */
+                margin: 10px 0;
+            }
+
+            .battle-container {
+                flex-direction: column;  /* Stack the villains vertically on smaller screens */
+            }
+
+            #leaderboard {
+                width: 90%;  /* Make leaderboard full width on mobile */
+                margin-left: 0;  /* Remove margin */
+            }
+
+            footer {
+                font-size: 0.8rem;  /* Smaller font size for footer on mobile */
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 10vw;  /* Further reduce font size for small screens */
+            }
         }
     </style>
 </head>
@@ -205,7 +235,7 @@
 
         let matchupIndex = 0;
         let countdown;
-        let timeLeft = 60; // 1 minute = 60 seconds
+        let timeLeft = 2; // 0 minute = 2 seconds
         let votingEnabled = true; // Flag to track if voting is enabled
 
         // Start the timer countdown
