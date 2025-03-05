@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SlasherFaceOff</title>
@@ -190,8 +189,8 @@
             }
         }
     </style>
-</head>
-<body>
+<style type="text/css" id="operaUserStyle"></style></head>
+<body data-new-gr-c-s-check-loaded="14.1224.0" data-gr-ext-installed="">
 
     <header>
         <h1>SlasherFaceOff</h1>
@@ -199,33 +198,46 @@
 
     <main>
         <div class="battle-container">
-            <div class="villain-container" id="villain1">
-                <!-- Villain 1 image and name will be dynamically inserted here -->
+            <div class="villain-container" id="villain1"> 
+                <img src="chucky.jpg" alt="Chucky" onclick="selectWinner(1)">
+                <p>Chucky</p>
             </div>
-            <div class="villain-container" id="villain2">
-                <!-- Villain 2 image and name will be dynamically inserted here -->
+            <div class="villain-container" id="villain2"> 
+                <img src="michaelmyers.jpg" alt="Michael Myers" onclick="selectWinner(2)">
+                <p>Michael Myers</p>
             </div>
         </div>
 
-        <div id="timer">Time Remaining: 01:00</div>
+        <div id="timer">Time Remaining: 00:00</div>
 
-        <div id="leaderboard">
+        <div id="leaderboard" style="
+    height: 70px;
+    margin-left: 30px;
+    margin-right: 90px;
+">
             <h2>Leaderboard</h2>
             <ul id="leaderboard-list">
                 <!-- Dynamic leaderboard will populate here -->
             </ul>
         </div>
 
-        <div id="winner">
+        <div id="winner" style="display: block;">
             <h2>Winner</h2>
-            <img id="winner-image" src="" alt="">
-            <p id="winner-name"></p>
-            <p id="winner-score"></p>
+            <img id="winner-image" src="freddy.jpg" alt="">
+            <p id="winner-name">Freddy Krueger</p>
+            <p id="winner-score">0 wins</p>
         </div>
     </main>
 
     <footer>
-        <p>Created by <a href="https://t.co/cIMpG0Un4Q">mr delorian</a></p>
+        <p style="
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    height: -90;
+    height: -90;
+    height: 920px;
+">Created by <a href="https://t.co/cIMpG0Un4Q">mr delorian</a></p>
     </footer>
 
     <script>
@@ -323,5 +335,6 @@
             startTimer();
         };
     </script>
-</body>
-</html>
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
