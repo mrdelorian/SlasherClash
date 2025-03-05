@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SlasherFaceOff</title>
@@ -20,7 +21,7 @@
         }
 
         h1 {
-            font-size: 8vw;  /* Adjust font size for responsiveness */
+            font-size: 12.6rem;
             color: #f44336;
             margin: 20px 0;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
@@ -28,12 +29,11 @@
 
         .battle-container {
             display: flex;
-            justify-content: space-evenly;
-            gap: 10px;
+            justify-content: center;
+            gap: 30px;
             margin-top: 20px;
-            width: 100%;
+            width: 80%;
             max-width: 1000px;
-            flex-wrap: wrap; /* Allows stacking on smaller screens */
         }
 
         .villain-container {
@@ -41,11 +41,9 @@
             border-radius: 10px;
             padding: 20px;
             width: 45%;
-            max-width: 300px;  /* Prevents containers from becoming too large */
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease-in-out;
-            margin: 10px;
         }
 
         .villain-container img {
@@ -69,14 +67,17 @@
 
         /* Leaderboard Section */
         #leaderboard {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 30px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 1000px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            margin-top: 30px;
-        }
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%; /* Ensures there's space for margin */
+    max-width: 1000px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin-top: 30px;
+    margin-left: -3.6%;  /* Moves the leaderboard slightly to the right */
+    /* margin-right: 10%; Moves to the left */
+}
+
 
         #leaderboard h2 {
             color: #f44336;
@@ -101,10 +102,14 @@
             display: none;
             text-align: center;
             margin-top: 50px;
+            margin-left: -16%;  /* Moves the winner slightly to the right */
+    /* margin-right: 10%; Moves to the left */
         }
 
         #winner img {
             max-width: 300px;
+            margin-left: -16;  /* Moves the winner img slightly to the right */
+            /* margin-right: 10%; Moves to the left */
         }
 
         #winner p {
@@ -115,25 +120,26 @@
 
         /* Timer */
         #timer {
-            font-size: 2rem;
-            color: white;
-            background-color: #f4433600;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
+    font-size: 2rem;
+    color: white;
+    background-color: #f4433600;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 20px; /* Move the timer to the right */
+    /* or */
+    margin-right: 112px; /* Move the timer to the left */
+}
+
 
         /* Footer */
         footer {
             font-size: 1rem;
             color: white;
-            text-align: center;
-            padding: 20px;
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            background-color: #333;
+            text-align: left; /* Move footer text to the left */
+            padding-left: 1620px; /* Optional: Adds space from the left */
+            width: 100%; /* Ensures footer takes full width */
+            position: absolute; /* Fixes footer at the bottom */
+            bottom: 1; /* Position it at the bottom of the page */
         }
 
         footer a {
@@ -144,53 +150,9 @@
         footer a:hover {
             text-decoration: underline;
         }
-
-        /* Media Queries for Responsiveness */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 10vw; /* Reduce font size on tablets and smaller devices */
-            }
-
-            .battle-container {
-                flex-direction: column; /* Stack items on smaller screens */
-                align-items: center;
-            }
-
-            .villain-container {
-                width: 80%;  /* Increase width to fit on smaller screens */
-            }
-
-            #leaderboard {
-                width: 90%;
-            }
-
-            footer {
-                font-size: 0.9rem;
-                padding: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 12vw;  /* Further reduce font size on small screens */
-            }
-
-            .villain-container {
-                width: 90%;  /* Full width on very small devices */
-            }
-
-            #timer {
-                font-size: 1.5rem;
-                padding: 5px;
-            }
-
-            footer {
-                font-size: 0.8rem;
-            }
-        }
     </style>
-<style type="text/css" id="operaUserStyle"></style></head>
-<body data-new-gr-c-s-check-loaded="14.1224.0" data-gr-ext-installed="">
+</head>
+<body>
 
     <header>
         <h1>SlasherFaceOff</h1>
@@ -198,65 +160,52 @@
 
     <main>
         <div class="battle-container">
-            <div class="villain-container" id="villain1"> 
-                <img src="chucky.jpg" alt="Chucky" onclick="selectWinner(1)">
-                <p>Chucky</p>
+            <div class="villain-container" id="villain1">
+                <!-- Villain 1 image and name will be dynamically inserted here -->
             </div>
-            <div class="villain-container" id="villain2"> 
-                <img src="michaelmyers.jpg" alt="Michael Myers" onclick="selectWinner(2)">
-                <p>Michael Myers</p>
+            <div class="villain-container" id="villain2">
+                <!-- Villain 2 image and name will be dynamically inserted here -->
             </div>
         </div>
 
-        <div id="timer">Time Remaining: 00:00</div>
+        <div id="timer">Time Remaining: 01:00</div>
 
-        <div id="leaderboard" style="
-    height: 70px;
-    margin-left: 30px;
-    margin-right: 90px;
-">
+        <div id="leaderboard">
             <h2>Leaderboard</h2>
             <ul id="leaderboard-list">
                 <!-- Dynamic leaderboard will populate here -->
             </ul>
         </div>
 
-        <div id="winner" style="display: block;">
+        <div id="winner">
             <h2>Winner</h2>
-            <img id="winner-image" src="freddy.jpg" alt="">
-            <p id="winner-name">Freddy Krueger</p>
-            <p id="winner-score">0 wins</p>
+            <img id="winner-image" src="" alt="">
+            <p id="winner-name"></p>
+            <p id="winner-score"></p>
         </div>
     </main>
 
     <footer>
-        <p style="
-    margin-top: 0px;
-    margin-bottom: 0px;
-    padding-top: 0px;
-    height: -90;
-    height: -90;
-    height: 920px;
-">Created by <a href="https://t.co/cIMpG0Un4Q">mr delorian</a></p>
+        <p>Created by <a href="https://t.co/cIMpG0Un4Q">mr delorian</a></p>
     </footer>
 
     <script>
         let villains = [
-            { name: "Freddy Krueger", wins: 0, image: "freddy.jpg" },
-            { name: "Jason Voorhees", wins: 0, image: "jason.jpg" },
-            { name: "Chucky", wins: 0, image: "chucky.jpg" },
-            { name: "Michael Myers", wins: 0, image: "michaelmyers.jpg" },
-            { name: "Pinhead", wins: 0, image: "pinhead.jpg" },
-            { name: "Esther", wins: 0, image: "esther.jpg" },
-            { name: "Art The Clown", wins: 0, image: "arttheclown.jpg" },
-            { name: "Candyman", wins: 0, image: "candyman.jpg" },
-            { name: "The Thing", wins: 0, image: "thething.jpg" },
-            { name: "Frankenstein", wins: 0, image: "frankenstein.jpg" }
+            { name: "Freddy Krueger", wins: 0, image: "images/freddy.jpg" },
+            { name: "Jason Voorhees", wins: 0, image: "images/jason.jpg" },
+            { name: "Chucky", wins: 0, image: "images/chucky.jpg" },
+            { name: "Michael Myers", wins: 0, image: "images/michaelmyers.jpg" },
+            { name: "Pinhead", wins: 0, image: "images/pinhead.jpg" },
+            { name: "Esther", wins: 0, image: "images/esther.jpg" },
+            { name: "Art The Clown", wins: 0, image: "images/arttheclown.jpg" },
+            { name: "Candyman", wins: 0, image: "images/candyman.jpg" },
+            { name: "The Thing", wins: 0, image: "images/thething.jpg" },
+            { name: "Frankenstein", wins: 0, image: "images/frankenstein.jpg" }
         ];
 
         let matchupIndex = 0;
         let countdown;
-        let timeLeft = 60; // 1 minute = 60 seconds
+        let timeLeft = 2; // 0 minute = 2 seconds
         let votingEnabled = true; // Flag to track if voting is enabled
 
         // Start the timer countdown
@@ -335,6 +284,6 @@
             startTimer();
         };
     </script>
+</body>
+</html>
 
-
-</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
