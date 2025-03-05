@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SlasherFaceOff</title>
@@ -20,9 +21,9 @@
         }
 
         h1 {
-            font-size: 5vw;  /* Responsive font size based on the viewport width */
+            font-size: 12.6rem;
             color: #f44336;
-            margin: 60px 0;
+            margin: 20px 0;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
         }
 
@@ -31,9 +32,8 @@
             justify-content: center;
             gap: 30px;
             margin-top: 20px;
-            width: 90%;
+            width: 80%;
             max-width: 1000px;
-            flex-wrap: wrap;  /* Allows the layout to adjust on smaller screens */
         }
 
         .villain-container {
@@ -41,11 +41,9 @@
             border-radius: 10px;
             padding: 20px;
             width: 45%;
-            max-width: 300px;  /* Prevents it from becoming too wide on larger screens */
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease-in-out;
-            margin: 10px;
         }
 
         .villain-container img {
@@ -69,15 +67,17 @@
 
         /* Leaderboard Section */
         #leaderboard {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 30px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 1000px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            margin-top: 30px;
-            margin-left: -3.6%;
-        }
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%; /* Ensures there's space for margin */
+    max-width: 1000px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin-top: 30px;
+    margin-left: -3.6%;  /* Moves the leaderboard slightly to the right */
+    /* margin-right: 10%; Moves to the left */
+}
+
 
         #leaderboard h2 {
             color: #f44336;
@@ -102,12 +102,14 @@
             display: none;
             text-align: center;
             margin-top: 50px;
-            margin-left: -16%;
+            margin-left: -16%;  /* Moves the winner slightly to the right */
+    /* margin-right: 10%; Moves to the left */
         }
 
         #winner img {
             max-width: 300px;
-            margin-left: -16;
+            margin-left: -16;  /* Moves the winner img slightly to the right */
+            /* margin-right: 10%; Moves to the left */
         }
 
         #winner p {
@@ -118,25 +120,26 @@
 
         /* Timer */
         #timer {
-            font-size: 2rem;
-            color: white;
-            background-color: #f4433600;
-            padding: 10px;
-            border-radius: 5px;
-            margin-left: 20px;
-        }
+    font-size: 2rem;
+    color: white;
+    background-color: #f4433600;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 20px; /* Move the timer to the right */
+    /* or */
+    margin-right: 112px; /* Move the timer to the left */
+}
+
 
         /* Footer */
         footer {
             font-size: 1rem;
             color: white;
-            text-align: center; /* Center the footer text */
-            padding: -6px;
-            width: 100%;
-            position: absolute;
-            bottom: 600;
-            left: 0;
-            background-color: #ffffff00;
+            text-align: left; /* Move footer text to the left */
+            padding-left: 1620px; /* Optional: Adds space from the left */
+            width: 100%; /* Ensures footer takes full width */
+            position: absolute; /* Fixes footer at the bottom */
+            bottom: 1; /* Position it at the bottom of the page */
         }
 
         footer a {
@@ -147,97 +150,43 @@
         footer a:hover {
             text-decoration: underline;
         }
-
-        /* Media Queries for Responsiveness */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 8vw;  /* Make header font size smaller on medium devices */
-            }
-
-            .villain-container {
-                width: 90%;  /* Full width for mobile */
-                margin: 10px 0;
-            }
-
-            .battle-container {
-                flex-direction: column;  /* Stack the villains vertically on smaller screens */
-            }
-
-            #leaderboard {
-                width: 90%;  /* Make leaderboard full width on mobile */
-                margin-left: 0;  /* Remove margin */
-            }
-
-            footer {
-                font-size: 0.8rem;  /* Smaller font size for footer on mobile */
-                padding: -6px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 10vw;  /* Further reduce font size for small screens */
-            }
-        }
     </style>
-<style type="text/css" id="operaUserStyle"></style></head>
-<body data-new-gr-c-s-check-loaded="14.1224.0" data-gr-ext-installed="">
+</head>
+<body>
 
-    <header style="height: 160px;width: 620px;margin-left: 0px;margin-right: 320px;">
-        <h1 style="
-    margin-right: 0px;
-">SlasherFaceOff</h1>
+    <header>
+        <h1>SlasherFaceOff</h1>
     </header>
 
-    <main style="
-    height: 126px;
-">
-        <div class="battle-container" style="
-    width: 900px;
-    margin-right: 240px;
-">
-            <div class="villain-container" id="villain1"> 
-                <img src="arttheclown.jpg" alt="Art The Clown" onclick="selectWinner(1)">
-                <p>Art The Clown</p>
+    <main>
+        <div class="battle-container">
+            <div class="villain-container" id="villain1">
+                <!-- Villain 1 image and name will be dynamically inserted here -->
             </div>
-            <div class="villain-container" id="villain2"> 
-                <img src="candyman.jpg" alt="Candyman" onclick="selectWinner(2)">
-                <p>Candyman</p>
+            <div class="villain-container" id="villain2">
+                <!-- Villain 2 image and name will be dynamically inserted here -->
             </div>
         </div>
 
-        <div id="timer" style="
-    margin-right: 216px;
-">Time Remaining: 00:00</div>
+        <div id="timer">Time Remaining: 01:00</div>
 
-        <div id="leaderboard" style="
-    width: 260px;
-    margin-left: 300px;
-">
+        <div id="leaderboard">
             <h2>Leaderboard</h2>
-            <ul id="leaderboard-list"><li>Chucky: 1 wins</li><li>Pinhead: 1 wins</li><li>Freddy Krueger: 0 wins</li><li>Jason Voorhees: 0 wins</li><li>Michael Myers: 0 wins</li><li>Esther: 0 wins</li><li>Art The Clown: 0 wins</li><li>Candyman: 0 wins</li><li>The Thing: 0 wins</li><li>Frankenstein: 0 wins</li></ul>
+            <ul id="leaderboard-list">
+                <!-- Dynamic leaderboard will populate here -->
+            </ul>
         </div>
 
-        <div id="winner" style="display: block;">
-            <h2 style="
-    margin-right: 60px;
-">Winner</h2>
-            <img id="winner-image" src="chucky.jpg" alt="" style="
-    margin-right: 60px;
-">
-            <p id="winner-name" style="
-    margin-right: 60px;
-">Chucky</p>
-            <p id="winner-score" style="
-    margin-right: 60px;
-">1 wins</p>
+        <div id="winner">
+            <h2>Winner</h2>
+            <img id="winner-image" src="" alt="">
+            <p id="winner-name"></p>
+            <p id="winner-score"></p>
         </div>
     </main>
 
     <footer>
-        <p style="
-    margin-right: 200px;
-">Created by <a href="https://t.co/cIMpG0Un4Q">mr delorian</a></p>
+        <p>Created by <a href="https://t.co/cIMpG0Un4Q">mr delorian</a></p>
     </footer>
 
     <script>
@@ -256,7 +205,7 @@
 
         let matchupIndex = 0;
         let countdown;
-        let timeLeft = 60; // 1 minute = 60 seconds
+        let timeLeft = 2; // 0 minute = 2 seconds
         let votingEnabled = true; // Flag to track if voting is enabled
 
         // Start the timer countdown
@@ -335,6 +284,5 @@
             startTimer();
         };
     </script>
-
-
-</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
+</body>
+</html>
