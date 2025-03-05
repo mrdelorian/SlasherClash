@@ -21,7 +21,7 @@
         }
 
         h1 {
-            font-size: 12.6rem;
+            font-size: 8vw;  /* Adjust font size for responsiveness */
             color: #f44336;
             margin: 20px 0;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
@@ -29,11 +29,12 @@
 
         .battle-container {
             display: flex;
-            justify-content: center;
-            gap: 30px;
+            justify-content: space-evenly;
+            gap: 10px;
             margin-top: 20px;
-            width: 80%;
+            width: 100%;
             max-width: 1000px;
+            flex-wrap: wrap; /* Allows stacking on smaller screens */
         }
 
         .villain-container {
@@ -41,9 +42,11 @@
             border-radius: 10px;
             padding: 20px;
             width: 45%;
+            max-width: 300px;  /* Prevents containers from becoming too large */
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease-in-out;
+            margin: 10px;
         }
 
         .villain-container img {
@@ -67,17 +70,14 @@
 
         /* Leaderboard Section */
         #leaderboard {
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 30px;
-    border-radius: 10px;
-    width: 80%; /* Ensures there's space for margin */
-    max-width: 1000px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    margin-top: 30px;
-    margin-left: -3.6%;  /* Moves the leaderboard slightly to the right */
-    /* margin-right: 10%; Moves to the left */
-}
-
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 1000px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            margin-top: 30px;
+        }
 
         #leaderboard h2 {
             color: #f44336;
@@ -102,14 +102,10 @@
             display: none;
             text-align: center;
             margin-top: 50px;
-            margin-left: -16%;  /* Moves the winner slightly to the right */
-    /* margin-right: 10%; Moves to the left */
         }
 
         #winner img {
             max-width: 300px;
-            margin-left: -16;  /* Moves the winner img slightly to the right */
-            /* margin-right: 10%; Moves to the left */
         }
 
         #winner p {
@@ -120,26 +116,25 @@
 
         /* Timer */
         #timer {
-    font-size: 2rem;
-    color: white;
-    background-color: #f4433600;
-    padding: 10px;
-    border-radius: 5px;
-    margin-left: 20px; /* Move the timer to the right */
-    /* or */
-    margin-right: 112px; /* Move the timer to the left */
-}
-
+            font-size: 2rem;
+            color: white;
+            background-color: #f4433600;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
 
         /* Footer */
         footer {
             font-size: 1rem;
             color: white;
-            text-align: left; /* Move footer text to the left */
-            padding-left: 1620px; /* Optional: Adds space from the left */
-            width: 100%; /* Ensures footer takes full width */
-            position: absolute; /* Fixes footer at the bottom */
-            bottom: 1; /* Position it at the bottom of the page */
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #333;
         }
 
         footer a {
@@ -149,6 +144,50 @@
 
         footer a:hover {
             text-decoration: underline;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 10vw; /* Reduce font size on tablets and smaller devices */
+            }
+
+            .battle-container {
+                flex-direction: column; /* Stack items on smaller screens */
+                align-items: center;
+            }
+
+            .villain-container {
+                width: 80%;  /* Increase width to fit on smaller screens */
+            }
+
+            #leaderboard {
+                width: 90%;
+            }
+
+            footer {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 12vw;  /* Further reduce font size on small screens */
+            }
+
+            .villain-container {
+                width: 90%;  /* Full width on very small devices */
+            }
+
+            #timer {
+                font-size: 1.5rem;
+                padding: 5px;
+            }
+
+            footer {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
