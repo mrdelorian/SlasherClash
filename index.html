@@ -120,43 +120,54 @@
   footer a { color:#f44336; text-decoration:none; }
   footer a:hover { text-decoration:underline; }
 
-  @media (max-width: 768px) {
-    .battle-container { grid-template-columns: 1fr; }
+  /* Mobile portrait (stacked) */
+  @media (max-width: 500px) {
+    .battle-container {
+      grid-template-columns: 1fr;
+    }
+    .image-box { max-width: 260px; }
+  }
+
+  /* Mobile landscape or small tablets (side-by-side) */
+  @media (min-width: 501px) and (max-width: 768px), (orientation: landscape) and (max-width: 768px) {
+    .battle-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
     .image-box { max-width: 260px; }
   }
 </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>SlasherFaceOff</h1>
-    </header>
+<div class="container">
+  <header>
+    <h1>SlasherFaceOff</h1>
+  </header>
 
-    <main>
-      <section class="battle-container" aria-label="Matchup area">
-        <div class="villain-card" id="villain1"></div>
-        <div class="villain-card" id="villain2"></div>
-      </section>
+  <main>
+    <section class="battle-container" aria-label="Matchup area">
+      <div class="villain-card" id="villain1"></div>
+      <div class="villain-card" id="villain2"></div>
+    </section>
 
-      <div id="timer" aria-live="polite">Time Remaining: 01:00</div>
+    <div id="timer" aria-live="polite">Time Remaining: 01:00</div>
 
-      <section id="leaderboard" aria-label="Leaderboard">
-        <h2>Leaderboard</h2>
-        <ul id="leaderboard-list"></ul>
-      </section>
+    <section id="leaderboard" aria-label="Leaderboard">
+      <h2>Leaderboard</h2>
+      <ul id="leaderboard-list"></ul>
+    </section>
 
-      <section id="winner" aria-label="Winner">
-        <h2>Winner</h2>
-        <img id="winner-image" src="" alt="">
-        <p id="winner-name"></p>
-        <p id="winner-score"></p>
-      </section>
-    </main>
-  </div>
+    <section id="winner" aria-label="Winner">
+      <h2>Winner</h2>
+      <img id="winner-image" src="" alt="">
+      <p id="winner-name"></p>
+      <p id="winner-score"></p>
+    </section>
+  </main>
+</div>
 
-  <footer>
-    <p>Created by <a href="https://t.co/cIMpG0Un4Q" target="_blank" rel="noopener">mr delorian</a></p>
-  </footer>
+<footer>
+  <p>Created by <a href="https://t.co/cIMpG0Un4Q" target="_blank" rel="noopener">mr delorian</a></p>
+</footer>
 
 <script>
   const villains = [
@@ -182,7 +193,9 @@
     const el = document.getElementById(containerId);
     el.innerHTML = `
       <div class="image-box" data-player="${playerNumber}">
-        <img src="${villain.image}" alt="${villain.name}" onerror="this.src='https://via.placeholder.com/340x408?text=No+Image';" data-player="${playerNumber}">
+        <img src="${villain.image}" alt="${villain.name}" 
+             onerror="this.src='https://via.placeholder.com/340x408?text=No+Image';" 
+             data-player="${playerNumber}">
       </div>
       <div class="villain-name">${villain.name}</div>
     `;
