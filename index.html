@@ -21,7 +21,7 @@
 
   .container {
     width: 100%;
-    max-width: 1100px; /* change for wider desktop */
+    max-width: 1100px;
     padding: 24px;
     margin: 0 auto;
     display: flex;
@@ -37,7 +37,6 @@
     margin-bottom: 8px;
   }
 
-  /* Battle cards */
   .battle-container {
     display: grid;
     grid-template-columns: repeat(2, minmax(260px, 1fr));
@@ -121,7 +120,6 @@
   footer a { color:#f44336; text-decoration:none; }
   footer a:hover { text-decoration:underline; }
 
-  /* Mobile responsiveness */
   @media (max-width: 768px) {
     .battle-container { grid-template-columns: 1fr; }
     .image-box { max-width: 260px; }
@@ -184,7 +182,7 @@
     const el = document.getElementById(containerId);
     el.innerHTML = `
       <div class="image-box" data-player="${playerNumber}">
-        <img src="${villain.image}" alt="${villain.name} - click to vote" data-player="${playerNumber}">
+        <img src="${villain.image}" alt="${villain.name}" onerror="this.src='https://via.placeholder.com/340x408?text=No+Image';" data-player="${playerNumber}">
       </div>
       <div class="villain-name">${villain.name}</div>
     `;
