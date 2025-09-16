@@ -9,3 +9,5 @@ Fixed mobile view for horizontal and vertical viewing (9/14/2025)
 Added randomization to the matches/face offs (9/14/2025)
 
 Renamed to SlasherClash (9/15/2025)
+
+Added a tournament mode, in the form of a March Madness type event, next to the normal mode (9/15/2025 night)
