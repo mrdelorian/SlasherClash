@@ -1,267 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SlasherFaceOff</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slasher Clash</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #121212;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
 
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    h1 {
+      font-size: 4rem;
+      color: #f44336;
+      margin: 20px 0;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+    }
 
-  .container {
-    width: 100%;
-    max-width: 1100px;
-    padding: 24px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
+    .battle-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      width: 90%;
+      max-width: 1000px;
+      margin-top: 20px;
+    }
 
-  header h1 {
-    text-align: center;
-    color: #f44336;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
-    font-size: clamp(2rem, 6vw, 4rem);
-    margin-bottom: 8px;
-  }
+    .image-box {
+      background-color: #333;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease-in-out;
+      cursor: pointer;
+    }
 
-  .battle-container {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(260px, 1fr));
-    gap: 28px;
-    width: 100%;
-  }
+    .image-box img {
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+      border-radius: 10px;
+      transition: transform 0.3s ease-in-out;
+    }
 
-  .villain-card {
-    background-color: #333;
-    border-radius: 12px;
-    padding: 18px;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-  }
+    .image-box img:hover {
+      transform: scale(1.05);
+    }
 
-  .image-box {
-    width: 100%;
-    max-width: 340px;
-    aspect-ratio: 5 / 6;
-    overflow: hidden;
-    border-radius: 10px;
-    background: #222;
-  }
+    .image-box p {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
 
-  .image-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    cursor: pointer;
-    transition: transform 0.18s ease;
-  }
+    #timer {
+      font-size: 1.5rem;
+      margin-top: 20px;
+    }
 
-  .image-box img:hover,
-  .image-box img:active {
-    transform: scale(1.03);
-  }
+    #leaderboard {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      margin: 30px 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
 
-  .villain-name {
-    font-weight: 700;
-    font-size: 1.05rem;
-    text-align: center;
-    color: #fff;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-  }
+    #leaderboard h2 {
+      color: #f44336;
+      margin-bottom: 10px;
+    }
 
-  #timer {
-    text-align: center;
-    font-size: clamp(1.1rem, 2.2vw, 2rem);
-    padding: 8px 14px;
-    border-radius: 8px;
-    background: rgba(244,67,54,0.05);
-    margin-top: 4px;
-  }
+    #leaderboard-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
 
-  #leaderboard {
-    background: rgba(0,0,0,0.6);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.35);
-    width: 100%;
-  }
+    #leaderboard-list li {
+      margin: 5px 0;
+      font-size: 1.1rem;
+    }
 
-  #leaderboard h2 { color: #f44336; margin-bottom: 12px; text-align:center; }
-  #leaderboard ul { list-style: none; text-align:center; }
-  #leaderboard li { margin: 6px 0; font-size: 1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
+    #winner {
+      display: none;
+      text-align: center;
+      margin-top: 30px;
+    }
 
-  #winner { display: none; text-align:center; margin-top: 6px; }
-  #winner img { max-width: 280px; border-radius: 10px; display:block; margin: 8px auto; }
+    #winner img {
+      max-width: 300px;
+      border-radius: 10px;
+    }
 
-  footer {
-    margin-top: 18px;
-    padding: 16px;
-    width: 100%;
-    text-align: center;
-    color: #ddd;
-    font-size: 0.95rem;
-  }
-  footer a { color:#f44336; text-decoration:none; }
-  footer a:hover { text-decoration:underline; }
+    #winner p {
+      font-size: 1.5rem;
+      margin: 10px 0;
+    }
 
-  @media (max-width: 500px) {
-    .battle-container { grid-template-columns: 1fr; }
-    .image-box { max-width: 260px; }
-  }
+    footer {
+      margin: 20px 0;
+      color: #aaa;
+    }
 
-  @media (min-width: 501px) and (max-width: 768px), (orientation: landscape) and (max-width: 768px) {
-    .battle-container { grid-template-columns: repeat(2, 1fr); }
-    .image-box { max-width: 260px; }
-  }
-</style>
+    footer a {
+      color: #f44336;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Portrait mobile - stack vertically */
+    @media (max-width: 500px) {
+      .battle-container {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+    }
+
+    /* Landscape mobile - side by side */
+    @media (orientation: landscape) and (max-width: 768px) {
+      .battle-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Tablets / small desktops */
+    @media (min-width: 501px) and (max-width: 1024px) {
+      .battle-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      h1 {
+        font-size: 3rem;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <header>
-    <h1>SlasherFaceOff</h1>
-  </header>
+  <h1>Slasher Clash</h1>
 
-  <main>
-    <section class="battle-container">
-      <div class="villain-card" id="villain1"></div>
-      <div class="villain-card" id="villain2"></div>
-    </section>
+  <div class="battle-container" id="battle-container">
+    <div class="image-box" id="villain1"></div>
+    <div class="image-box" id="villain2"></div>
+  </div>
 
-    <div id="timer">Time Remaining: 01:00</div>
+  <div id="timer">Time Remaining: 01:00</div>
 
-    <section id="leaderboard">
-      <h2>Leaderboard</h2>
-      <ul id="leaderboard-list"></ul>
-    </section>
+  <div id="leaderboard">
+    <h2>Leaderboard</h2>
+    <ul id="leaderboard-list"></ul>
+  </div>
 
-    <section id="winner">
-      <h2>Winner</h2>
-      <img id="winner-image" src="" alt="">
-      <p id="winner-name"></p>
-      <p id="winner-score"></p>
-    </section>
-  </main>
-</div>
+  <div id="winner">
+    <h2>Winner</h2>
+    <img id="winner-image" src="" alt="">
+    <p id="winner-name"></p>
+    <p id="winner-score"></p>
+  </div>
 
-<footer>
-  <p>Created by <a href="https://t.co/cIMpG0Un4Q" target="_blank">mr delorian</a></p>
-</footer>
+  <footer>
+    <p>Created by <a href="https://t.co/cIMpG0Un4Q">mr delorian</a></p>
+  </footer>
 
-<script>
-  const villains = [
-    { name: "Freddy Krueger", wins: 0, image: "images/freddy.jpg" },
-    { name: "Jason Voorhees", wins: 0, image: "images/jason.jpg" },
-    { name: "Chucky", wins: 0, image: "images/chucky.jpg" },
-    { name: "Michael Myers", wins: 0, image: "images/michaelmyers.jpg" },
-    { name: "Pinhead", wins: 0, image: "images/pinhead.jpg" },
-    { name: "Esther", wins: 0, image: "images/esther.jpg" },
-    { name: "Art The Clown", wins: 0, image: "images/arttheclown.jpg" },
-    { name: "Candyman", wins: 0, image: "images/candyman.jpg" },
-    { name: "The Thing", wins: 0, image: "images/thething.jpg" },
-    { name: "Frankenstein", wins: 0, image: "images/frankenstein.jpg" }
-  ];
+  <script>
+    const villains = [
+      { name: "Freddy Krueger", wins: 0, image: "images/freddy.jpg" },
+      { name: "Jason Voorhees", wins: 0, image: "images/jason.jpg" },
+      { name: "Chucky", wins: 0, image: "images/chucky.jpg" },
+      { name: "Michael Myers", wins: 0, image: "images/michaelmyers.jpg" },
+      { name: "Pinhead", wins: 0, image: "images/pinhead.jpg" },
+      { name: "Esther", wins: 0, image: "images/esther.jpg" },
+      { name: "Art The Clown", wins: 0, image: "images/arttheclown.jpg" },
+      { name: "Candyman", wins: 0, image: "images/candyman.jpg" },
+      { name: "The Thing", wins: 0, image: "images/thething.jpg" },
+      { name: "Frankenstein", wins: 0, image: "images/frankenstein.jpg" }
+    ];
 
-  let currentA = 0, currentB = 1;
-  let countdown = null;
-  let timeLeft = 60;
-  let votingEnabled = true;
+    let votingEnabled = true;
+    let timeLeft = 60;
+    let timerInterval;
 
-  function renderVillain(containerId, villain, playerNumber) {
-    const el = document.getElementById(containerId);
-    el.innerHTML = `
-      <div class="image-box" data-player="${playerNumber}">
-        <img src="${villain.image}" alt="${villain.name}" 
-             onerror="this.src='https://via.placeholder.com/340x408?text=No+Image';" 
-             data-player="${playerNumber}">
-      </div>
-      <div class="villain-name">${villain.name}</div>
-    `;
-    const img = el.querySelector('img');
-    img.addEventListener('click', () => selectWinner(playerNumber));
-  }
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        document.getElementById("timer").textContent = `Time Remaining: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        timeLeft--;
 
-  function nextMatchup() {
-    const len = villains.length;
+        if (timeLeft < 0) {
+          clearInterval(timerInterval);
+          endGame();
+        }
+      }, 1000);
+    }
 
-    // Pick two unique random indexes
-    let a = Math.floor(Math.random() * len);
-    let b;
-    do {
-      b = Math.floor(Math.random() * len);
-    } while (b === a);
+    function renderVillain(id, villain, number) {
+      document.getElementById(id).innerHTML = `
+        <img src="${villain.image}" alt="${villain.name}" onclick="selectWinner(${number})">
+        <p>${villain.name}</p>
+      `;
+    }
 
-    currentA = a;
-    currentB = b;
+    function nextMatchup() {
+      const len = villains.length;
+      let a = Math.floor(Math.random() * len);
+      let b;
+      do {
+        b = Math.floor(Math.random() * len);
+      } while (b === a);
 
-    renderVillain('villain1', villains[a], 1);
-    renderVillain('villain2', villains[b], 2);
-  }
+      currentA = a;
+      currentB = b;
 
-  function updateLeaderboard() {
-    const sorted = [...villains].sort((a,b) => b.wins - a.wins);
-    const list = document.getElementById('leaderboard-list');
-    list.innerHTML = '';
-    sorted.forEach(v => {
-      const li = document.createElement('li');
-      li.textContent = `${v.name}: ${v.wins} ${v.wins === 1 ? 'win' : 'wins'}`;
-      list.appendChild(li);
-    });
-  }
+      renderVillain('villain1', villains[a], 1);
+      renderVillain('villain2', villains[b], 2);
+    }
 
-  function selectWinner(playerNumber) {
-    if (!votingEnabled) return;
-    const index = playerNumber === 1 ? currentA : currentB;
-    villains[index].wins += 1;
-    updateLeaderboard();
-    nextMatchup();
-  }
+    function selectWinner(villainNumber) {
+      if (!votingEnabled) return;
 
-  function endGame() {
-    votingEnabled = false;
-    clearInterval(countdown);
-    const winner = [...villains].sort((a,b) => b.wins - a.wins)[0];
-    document.getElementById('winner-image').src = winner.image;
-    document.getElementById('winner-name').textContent = winner.name;
-    document.getElementById('winner-score').textContent = `${winner.wins} ${winner.wins === 1 ? 'win' : 'wins'}`;
-    document.getElementById('winner').style.display = 'block';
-  }
+      let winner = villainNumber === 1 ? villains[currentA] : villains[currentB];
+      winner.wins += 1;
+      updateLeaderboard();
+      nextMatchup();
+    }
 
-  function startTimer() {
-    const timerEl = document.getElementById('timer');
-    timerEl.textContent = formatTime(timeLeft);
-    countdown = setInterval(() => {
-      timeLeft--;
-      timerEl.textContent = formatTime(timeLeft);
-      if (timeLeft <= 0) endGame();
-    }, 1000);
-  }
+    function updateLeaderboard() {
+      villains.sort((a, b) => b.wins - a.wins);
+      let list = document.getElementById("leaderboard-list");
+      list.innerHTML = "";
+      villains.forEach(v => {
+        let li = document.createElement("li");
+        li.textContent = `${v.name}: ${v.wins} wins`;
+        list.appendChild(li);
+      });
+    }
 
-  function formatTime(seconds) {
-    if (seconds < 0) seconds = 0;
-    const m = Math.floor(seconds / 60).toString().padStart(2,'0');
-    const s = (seconds % 60).toString().padStart(2,'0');
-    return `Time Remaining: ${m}:${s}`;
-  }
+    function endGame() {
+      votingEnabled = false;
+      let winner = villains.sort((a, b) => b.wins - a.wins)[0];
+      document.getElementById("winner-image").src = winner.image;
+      document.getElementById("winner-name").textContent = winner.name;
+      document.getElementById("winner-score").textContent = `${winner.wins} wins`;
+      document.getElementById("winner").style.display = "block";
+    }
 
-  window.addEventListener('load', () => {
-    nextMatchup();
-    updateLeaderboard();
-    startTimer();
-  });
-</script>
+    window.onload = () => {
+      nextMatchup();
+      startTimer();
+    };
+  </script>
 </body>
 </html>
