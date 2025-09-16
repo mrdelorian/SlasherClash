@@ -1,271 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Slasher Clash</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #121212;
-      color: #fff;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 4rem;
-      color: #f44336;
-      margin: 20px 0;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-    }
-
-    .battle-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      width: 90%;
-      max-width: 1000px;
-      margin-top: 20px;
-    }
-
-    .image-box {
-      background-color: #333;
-      border-radius: 10px;
-      padding: 15px;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease-in-out;
-      cursor: pointer;
-    }
-
-    .image-box img {
-      width: 100%;
-      max-width: 250px;
-      height: auto;
-      border-radius: 10px;
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .image-box img:hover {
-      transform: scale(1.05);
-    }
-
-    .image-box p {
-      margin-top: 10px;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-
-    #timer {
-      font-size: 1.5rem;
-      margin-top: 20px;
-    }
-
-    #leaderboard {
-      background-color: rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 600px;
-      margin: 30px 0;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    }
-
-    #leaderboard h2 {
-      color: #f44336;
-      margin-bottom: 10px;
-    }
-
-    #leaderboard-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    #leaderboard-list li {
-      margin: 5px 0;
-      font-size: 1.1rem;
-    }
-
-    #winner {
-      display: none;
-      text-align: center;
-      margin-top: 30px;
-    }
-
-    #winner img {
-      max-width: 300px;
-      border-radius: 10px;
-    }
-
-    #winner p {
-      font-size: 1.5rem;
-      margin: 10px 0;
-    }
-
-    footer {
-      margin: 20px 0;
-      color: #aaa;
-    }
-
-    footer a {
-      color: #f44336;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    /* Portrait mobile - stack vertically */
-    @media (max-width: 500px) {
-      .battle-container {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 2.5rem;
-      }
-    }
-
-    /* Landscape mobile - side by side */
-    @media (orientation: landscape) and (max-width: 768px) {
-      .battle-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    /* Tablets / small desktops */
-    @media (min-width: 501px) and (max-width: 1024px) {
-      .battle-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      h1 {
-        font-size: 3rem;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slasher Clash</title>
+<style>
+body { font-family:'Arial', sans-serif; background:#121212; color:#fff; margin:0; padding:0; display:flex; flex-direction:column; align-items:center; min-height:100vh; text-align:center;}
+h1 { font-size:4rem; color:#f44336; margin:20px 0; text-shadow:2px 2px 5px rgba(0,0,0,0.6);}
+.controls {margin:10px 0;}
+.controls button {margin:5px; padding:8px 16px; font-size:1rem; border:none; border-radius:5px; cursor:pointer; background-color:#f44336; color:white;}
+.controls button:hover {background-color:#d32f2f;}
+#round {margin:10px 0; font-size:1.3rem; display:none; color:#f44336;}
+#timer {font-size:1.5rem; margin:15px 0;}
+.battle-container {display:flex; justify-content:center; gap:20px; margin-top:20px; width:90%; max-width:900px; flex-wrap:wrap;}
+.villain-container {background:#333; border-radius:10px; padding:10px; flex:1 1 250px; text-align:center; box-shadow:0 4px 8px rgba(0,0,0,0.3); cursor:pointer; transition: transform 0.3s, opacity 0.3s;}
+.villain-container img {width:100%; max-width:250px; border-radius:10px; transition: transform 0.3s;}
+.villain-container:hover {transform:scale(1.05);}
+.villain-container.eliminated {opacity:0.3; pointer-events:none;}
+.villain-container p {font-size:1.2rem; margin-top:10px; font-weight:bold;}
+#leaderboard {background:rgba(0,0,0,0.8); padding:20px; border-radius:10px; width:90%; max-width:600px; box-shadow:0 4px 8px rgba(0,0,0,0.5); margin:20px 0;}
+#leaderboard h2 {color:#f44336; margin-bottom:10px;}
+ul {list-style:none; padding:0;}
+ul li {margin:5px 0; font-size:1rem;}
+#bracket-container {display:flex; flex-wrap:nowrap; justify-content:center; align-items:flex-start; margin:20px 0; overflow-x:auto;}
+.round {display:flex; flex-direction:column; align-items:center; margin:0 15px;}
+.round h3 {color:#f44336; margin-bottom:10px;}
+.match {margin-bottom:15px; padding:5px; background:#222; border-radius:5px; min-width:120px;}
+.match span.eliminated {text-decoration:line-through; color:#888;}
+.match span.winner {background-color:darkred; color:white; padding:2px 4px; border-radius:3px;}
+#winner {display:none; margin-top:20px;}
+#winner img {max-width:200px; border-radius:10px;}
+footer {margin-top:auto; padding:10px; font-size:0.9rem; color:#aaa;}
+footer a {color:#f44336; text-decoration:none;}
+@media(max-width:768px){h1{font-size:2.5rem;} .battle-container{flex-direction:column; align-items:center;} @media(orientation:landscape){.battle-container{flex-direction:row; flex-wrap:nowrap;}}}
+</style>
 </head>
 <body>
-  <h1>Slasher Clash</h1>
+<h1>Slasher Clash</h1>
+<div class="controls">
+<button onclick="setMode('normal')">Normal Mode</button>
+<button onclick="setMode('tournament')">Tournament Mode</button>
+</div>
+<div id="round">Round: 1</div>
+<div id="timer">Time Remaining: 01:00</div>
+<div class="battle-container" id="battle-container"></div>
+<div id="bracket-container"></div>
+<div id="leaderboard">
+<h2>Leaderboard</h2>
+<ul id="leaderboard-list"></ul>
+</div>
+<div id="winner">
+<h2>Winner</h2>
+<img id="winner-image" src="" alt="">
+<p id="winner-name"></p>
+<p id="winner-score"></p>
+</div>
+<footer><p>Created by <a href="#">mr delorian</a></p></footer>
 
-  <div class="battle-container" id="battle-container">
-    <div class="image-box" id="villain1"></div>
-    <div class="image-box" id="villain2"></div>
-  </div>
+<script>
+const villains=[
+{name:"Freddy Krueger", image:"images/freddy.jpg", wins:0},
+{name:"Jason Voorhees", image:"images/jason.jpg", wins:0},
+{name:"Chucky", image:"images/chucky.jpg", wins:0},
+{name:"Michael Myers", image:"images/michaelmyers.jpg", wins:0},
+{name:"Pinhead", image:"images/pinhead.jpg", wins:0},
+{name:"Esther", image:"images/esther.jpg", wins:0},
+{name:"Art The Clown", image:"images/arttheclown.jpg", wins:0},
+{name:"Candyman", image:"images/candyman.jpg", wins:0},
+{name:"The Thing", image:"images/thething.jpg", wins:0},
+{name:"Frankenstein", image:"images/frankenstein.jpg", wins:0}
+];
 
-  <div id="timer">Time Remaining: 01:00</div>
+let mode="normal", timer=null, timeLeft=60, currentMatch=[], inputLocked=false;
+let tournamentQueue=[], tournamentBracket=[], tournamentWinners=[], roundNumber=1;
 
-  <div id="leaderboard">
-    <h2>Leaderboard</h2>
-    <ul id="leaderboard-list"></ul>
-  </div>
+// ---------------- Mode -----------------
+function setMode(selectedMode){
+  mode=selectedMode; clearInterval(timer); inputLocked=false;
+  currentMatch=[]; tournamentQueue=[]; tournamentBracket=[]; tournamentWinners=[];
+  roundNumber=1;
+  document.getElementById("winner").style.display="none";
+  document.getElementById("battle-container").innerHTML="";
+  document.getElementById("bracket-container").innerHTML="";
+  document.getElementById("round").style.display=(mode==='tournament')?'block':'none';
+  document.getElementById("leaderboard").style.display=(mode==='normal')?'block':'none';
+  if(mode==='normal'){
+    villains.forEach(v=>v.wins=0);
+    updateLeaderboard();
+  }
+  timeLeft=(mode==='normal')?60:12;
+  document.getElementById("timer").textContent=(mode==='normal')?"Time Remaining: 01:00":"Time Remaining: 00:12";
+  startTimer();
+  if(mode==='normal') nextNormalMatch();
+  if(mode==='tournament') startTournament();
+}
 
-  <div id="winner">
-    <h2>Winner</h2>
-    <img id="winner-image" src="" alt="">
-    <p id="winner-name"></p>
-    <p id="winner-score"></p>
-  </div>
-
-  <footer>
-    <p>Created by <a href="https://t.co/cIMpG0Un4Q">mr delorian</a></p>
-  </footer>
-
-  <script>
-    const villains = [
-      { name: "Freddy Krueger", wins: 0, image: "images/freddy.jpg" },
-      { name: "Jason Voorhees", wins: 0, image: "images/jason.jpg" },
-      { name: "Chucky", wins: 0, image: "images/chucky.jpg" },
-      { name: "Michael Myers", wins: 0, image: "images/michaelmyers.jpg" },
-      { name: "Pinhead", wins: 0, image: "images/pinhead.jpg" },
-      { name: "Esther", wins: 0, image: "images/esther.jpg" },
-      { name: "Art The Clown", wins: 0, image: "images/arttheclown.jpg" },
-      { name: "Candyman", wins: 0, image: "images/candyman.jpg" },
-      { name: "The Thing", wins: 0, image: "images/thething.jpg" },
-      { name: "Frankenstein", wins: 0, image: "images/frankenstein.jpg" }
-    ];
-
-    let votingEnabled = true;
-    let timeLeft = 60;
-    let timerInterval;
-
-    function startTimer() {
-      timerInterval = setInterval(() => {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-        document.getElementById("timer").textContent = `Time Remaining: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        timeLeft--;
-
-        if (timeLeft < 0) {
-          clearInterval(timerInterval);
-          endGame();
-        }
-      }, 1000);
+// ---------------- Timer -----------------
+function startTimer(){
+  clearInterval(timer);
+  timer=setInterval(()=>{
+    if(timeLeft>=0){
+      let m=String(Math.floor(timeLeft/60)).padStart(2,'0'); 
+      let s=String(timeLeft%60).padStart(2,'0'); 
+      document.getElementById("timer").textContent=`Time Remaining: ${m}:${s}`; 
+      timeLeft--;
+    }else{
+      clearInterval(timer);
+      if(mode==='normal') showNormalWinner();
+      else if(mode==='tournament') advanceTournament();
     }
+  },1000);
+}
 
-    function renderVillain(id, villain, number) {
-      document.getElementById(id).innerHTML = `
-        <img src="${villain.image}" alt="${villain.name}" onclick="selectWinner(${number})">
-        <p>${villain.name}</p>
-      `;
+// ---------------- Normal Mode -----------------
+function nextNormalMatch(){
+  inputLocked=false;
+  let v1=villains[Math.floor(Math.random()*villains.length)];
+  let v2=villains[Math.floor(Math.random()*villains.length)];
+  while(v2===v1) v2=villains[Math.floor(Math.random()*villains.length)];
+  displayMatchup(v1,v2);
+}
+
+function selectWinner(name){
+  if(inputLocked) return;
+  inputLocked=true;
+  if(mode==='normal'){
+    if(timeLeft<0) return;
+    let winner=villains.find(v=>v.name===name);
+    winner.wins++;
+    updateLeaderboard();
+    setTimeout(()=>{ inputLocked=false; nextNormalMatch(); },200);
+  } else if(mode==='tournament'){
+    let winner=currentMatch.find(v=>v.name===name);
+    let loser=currentMatch.find(v=>v.name!==name);
+    markBracket(winner.name, loser ? loser.name : null, roundNumber-1);
+    tournamentWinners.push(winner);
+    timeLeft=12;
+    setTimeout(()=>advanceTournament(),200);
+  }
+}
+
+function updateLeaderboard(){
+  const list=document.getElementById("leaderboard-list");
+  list.innerHTML="";
+  villains.sort((a,b)=>b.wins-a.wins).forEach(v=>{
+    const li=document.createElement("li");
+    li.textContent=`${v.name}: ${v.wins} wins`;
+    list.appendChild(li);
+  });
+}
+
+function showNormalWinner(){
+  inputLocked=true; clearInterval(timer);
+  let winner=[...villains].sort((a,b)=>b.wins-a.wins)[0];
+  document.getElementById("winner-image").src=winner.image;
+  document.getElementById("winner-name").textContent=winner.name;
+  document.getElementById("winner-score").textContent=`${winner.wins} wins`;
+  document.getElementById("winner").style.display="block";
+}
+
+// ---------------- Tournament -----------------
+function startTournament(){
+  let shuffled=[...villains].sort(()=>Math.random()-0.5);
+  tournamentQueue=[];
+  for(let i=0;i<shuffled.length;i+=2){
+    if(i+1<shuffled.length) tournamentQueue.push([shuffled[i],shuffled[i+1]]);
+    else tournamentQueue.push([shuffled[i]]);
+  }
+  tournamentBracket.push(JSON.parse(JSON.stringify(tournamentQueue.map(m=>m.map(v=>v.name)))));
+  initializeBracket(true); // first round
+  roundNumber=1;
+  document.getElementById("round").textContent=`Round: ${roundNumber}`;
+  advanceTournament();
+}
+
+function initializeBracket(firstRound=false){
+  const container=document.getElementById("bracket-container");
+  if(firstRound) container.innerHTML=""; // only clear for first round
+  const roundDiv=document.createElement("div");
+  roundDiv.className="round";
+  roundDiv.id=`round-${tournamentBracket.length-1}`;
+  roundDiv.innerHTML=`<h3>Round ${tournamentBracket.length}</h3>`;
+  tournamentQueue.forEach(match=>{
+    const matchDiv=document.createElement("div");
+    matchDiv.className="match";
+    match.forEach(sl=>{
+      const span=document.createElement("span");
+      span.id=`bracket-${tournamentBracket.length-1}-${sl.name}`;
+      span.textContent=sl.name;
+      matchDiv.appendChild(span);
+      matchDiv.appendChild(document.createElement("br"));
+    });
+    roundDiv.appendChild(matchDiv);
+  });
+  container.appendChild(roundDiv);
+}
+
+function markBracket(winnerName, loserName, roundIdx){
+  const winnerSpan=document.getElementById(`bracket-${roundIdx}-${winnerName}`);
+  if(winnerSpan) winnerSpan.classList.add('winner');
+  if(loserName){
+    const loserSpan=document.getElementById(`bracket-${roundIdx}-${loserName}`);
+    if(loserSpan) loserSpan.classList.add('eliminated');
+  }
+}
+
+function advanceTournament(){
+  if(currentMatch.length>0 && !inputLocked) return;
+  if(tournamentQueue.length===0){
+    if(tournamentWinners.length===1){
+      displayTournamentWinner(tournamentWinners[0]);
+      return;
     }
-
-    function nextMatchup() {
-      const len = villains.length;
-      let a = Math.floor(Math.random() * len);
-      let b;
-      do {
-        b = Math.floor(Math.random() * len);
-      } while (b === a);
-
-      currentA = a;
-      currentB = b;
-
-      renderVillain('villain1', villains[a], 1);
-      renderVillain('villain2', villains[b], 2);
+    let nextQueue=[];
+    for(let i=0;i<tournamentWinners.length;i+=2){
+      if(i+1<tournamentWinners.length) nextQueue.push([tournamentWinners[i],tournamentWinners[i+1]]);
+      else nextQueue.push([tournamentWinners[i]]);
     }
+    tournamentQueue=nextQueue;
+    tournamentBracket.push(JSON.parse(JSON.stringify(tournamentQueue.map(m=>m.map(v=>v.name)))));
+    initializeBracket(false); // append new round without clearing
+    roundNumber++;
+    document.getElementById("round").textContent=`Round: ${roundNumber}`;
+    tournamentWinners=[];
+  }
+  if(tournamentQueue.length>0){
+    currentMatch=tournamentQueue.shift();
+    displayMatchup(currentMatch[0],currentMatch[1]);
+    inputLocked=false;
+    timeLeft=12;
+  }
+}
 
-    function selectWinner(villainNumber) {
-      if (!votingEnabled) return;
-
-      let winner = villainNumber === 1 ? villains[currentA] : villains[currentB];
-      winner.wins += 1;
-      updateLeaderboard();
-      nextMatchup();
+function displayMatchup(v1,v2){
+  const container=document.getElementById("battle-container");
+  container.innerHTML="";
+  [v1,v2].forEach(v=>{
+    if(v){
+      const div=document.createElement("div"); div.className="villain-container";
+      div.innerHTML=`<img src="${v.image}" alt="${v.name}"><p>${v.name}</p>`;
+      div.onclick=()=>selectWinner(v.name);
+      container.appendChild(div);
     }
+  });
+}
 
-    function updateLeaderboard() {
-      villains.sort((a, b) => b.wins - a.wins);
-      let list = document.getElementById("leaderboard-list");
-      list.innerHTML = "";
-      villains.forEach(v => {
-        let li = document.createElement("li");
-        li.textContent = `${v.name}: ${v.wins} wins`;
-        list.appendChild(li);
-      });
-    }
+function displayTournamentWinner(winner){
+  inputLocked=true; clearInterval(timer); timeLeft=0;
+  document.getElementById("timer").textContent="Time Remaining: 00:00";
+  document.getElementById("battle-container").innerHTML="";
+  document.getElementById("winner-image").src=winner.image;
+  document.getElementById("winner-name").textContent=winner.name;
+  document.getElementById("winner-score").textContent="Champion";
+  document.getElementById("winner").style.display="block";
+}
 
-    function endGame() {
-      votingEnabled = false;
-      let winner = villains.sort((a, b) => b.wins - a.wins)[0];
-      document.getElementById("winner-image").src = winner.image;
-      document.getElementById("winner-name").textContent = winner.name;
-      document.getElementById("winner-score").textContent = `${winner.wins} wins`;
-      document.getElementById("winner").style.display = "block";
-    }
-
-    window.onload = () => {
-      nextMatchup();
-      startTimer();
-    };
-  </script>
+// ---------------- Init -----------------
+setMode('normal');
+</script>
 </body>
 </html>
